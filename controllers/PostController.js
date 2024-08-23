@@ -25,22 +25,21 @@ export const getOne = async (req, res) => {
       }
       //   (err, doc) => {
       //   }
-    ),
-      then((err, doc) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            message: "Не вдалось повернути статтю",
-          });
-        }
+    ).then((doc, err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          message: "Не вдалось повернути статтю",
+        });
+      }
 
-        if (!doc) {
-          return res.status(404).json({
-            message: "Стаття не знайдена",
-          });
-        }
-        res.json(doc);
-      });
+      if (!doc) {
+        return res.status(404).json({
+          message: "Стаття не знайдена",
+        });
+      }
+      res.json(doc);
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -67,3 +66,58 @@ export const create = async (req, res) => {
     });
   }
 };
+
+export const remove = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    PostModel.findOneAndDelete({
+      _id: postId,
+    }).then((doc, err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          message: "Не вдалось видалити статтю",
+        });
+      }
+
+      if (!doc) {
+        return res.status(404).json({
+          message: "Стаття не знайдена",
+        });
+      }
+      res.json({ success: true, message: "Статтю видалено" });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не вдалось отримати статтю",
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    await PostModel.updateOne(
+      {
+        _id: postId,
+      },
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags,
+        user: req.userId,
+      },
+    );
+    res.json({ success: true, message: "Статтю оновлено" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не вдалось оновити статтю",
+    });
+  }
+};
+
+
+
