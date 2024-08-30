@@ -42,21 +42,23 @@ export const getOne = async (req, res) => {
       }
       //   (err, doc) => {
       //   }
-    ).then((doc, err) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          message: "Не вдалось повернути статтю",
-        });
-      }
+    )
+      .populate("user")
+      .then((doc, err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            message: "Не вдалось повернути статтю",
+          });
+        }
 
-      if (!doc) {
-        return res.status(404).json({
-          message: "Стаття не знайдена",
-        });
-      }
-      res.json(doc);
-    });
+        if (!doc) {
+          return res.status(404).json({
+            message: "Стаття не знайдена",
+          });
+        }
+        res.json(doc);
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -71,7 +73,7 @@ export const create = async (req, res) => {
       title: req.body.title,
       text: req.body.text,
       imageUrl: req.body.imageUrl,
-      tags: req.body.tags,
+      tags: req.body.tags.split(","),
       user: req.userId,
     });
     const post = await doc.save();
@@ -123,7 +125,7 @@ export const update = async (req, res) => {
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
-        tags: req.body.tags,
+        tags: req.body.tags.split(","),
         user: req.userId,
       }
     );
