@@ -48,7 +48,7 @@ export const Registration = () => {
     <Paper classes={{ root: styles.root }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography classes={{ root: styles.title }} variant="h5">
-          Создание аккаунта
+          Створення акаунту
         </Typography>
         <div className={styles.avatar}>
           <Avatar sx={{ width: 100, height: 100 }} />
@@ -58,7 +58,7 @@ export const Registration = () => {
           helperText={errors.fullName?.message}
           {...register("fullName", { required: "Вкажіть повне ім'я" })}
           className={styles.field}
-          label="Полное имя"
+          label="Повне ім'я"
           fullWidth
         />
         <TextField
@@ -86,7 +86,7 @@ export const Registration = () => {
           variant="contained"
           fullWidth
         >
-          Зарегистрироваться
+          Зареєструватись
         </Button>
       </form>
     </Paper>

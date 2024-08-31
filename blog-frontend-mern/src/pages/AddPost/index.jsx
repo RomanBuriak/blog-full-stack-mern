@@ -113,7 +113,7 @@ export const AddPost = () => {
         variant="outlined"
         size="large"
       >
-        Загрузить превью
+        Завантажити 
       </Button>
       <input
         ref={inputFileRef}
@@ -128,7 +128,7 @@ export const AddPost = () => {
             color="error"
             onClick={onClickRemoveImage}
           >
-            Удалить
+            Видалити
           </Button>
           <img
             className={styles.image}
@@ -142,7 +142,7 @@ export const AddPost = () => {
       <TextField
         classes={{ root: styles.title }}
         variant="standard"
-        placeholder="Заголовок статьи..."
+        placeholder="Заголовок статті..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         fullWidth
@@ -150,7 +150,7 @@ export const AddPost = () => {
       <TextField
         classes={{ root: styles.tags }}
         variant="standard"
-        placeholder="Тэги"
+        placeholder="Теги"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
         fullWidth
@@ -166,7 +166,7 @@ export const AddPost = () => {
           {isEditing ? "Зберегти" : "Опублікувати"}
         </Button>
         <a href="/">
-          <Button size="large">Отмена</Button>
+          <Button size="large">Скасувати</Button>
         </a>
       </div>
     </Paper>
